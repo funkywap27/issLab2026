@@ -54,7 +54,7 @@ R2  L’utente umano deve poter:
         void switchCellState(); //se è viva una cella puo diventare morta e viceversa
     }
 
-    Griglia è un'entita composta da celle, in discussione con il committente si rileva che Griglia è un'entità a due dimensione.
+    Griglia è un'entita composta da celle, in discussione con il committente si rileva che Griglia è un'entità a due dimensioni.
     Si rileva che una dimensione è la lunghezza, il numero di colonne, e una dimensione è la larghezza, numero di righe.
     La Grid deve poter individuare una cella specifica in base al numero di riga e di colonna
 
@@ -69,6 +69,8 @@ R2  L’utente umano deve poter:
         public void reset(); //non primitiva: si riferisce allo stato delle celle, pone tutte le celle allo stato morta.
     }
 
+    Life è un'entità di cui il committente non conosce la struttura. è la logica del gioco Conway, contiene in se le regole del gioco.
+    L'entità Life è composta da Grid, a sua volta composta. 
     public interface LifeInterface {
         void nextGeneration(); // Calcola l'evoluzione dello stato alla generazione successiva
         boolean isAlive(int row, int col); //Restituisce lo stato di una cella specifica
@@ -79,7 +81,7 @@ R2  L’utente umano deve poter:
         int getCols();
 
         ICell getCell(int x, int y); //Restituisce la Cella
-        Grid getGrid(); //Restituisce la grid
+        IGrid getGrid(); //Restituisce la grid
         void resetGrids(); //pulisce
         public String gridRep( ); // Restituisce una rappresentazione grafica testuale della grglia
     }
@@ -130,7 +132,7 @@ public class GridTest {
 	private static final int nRows=5;
 	private static final int nCols=5;
 	
-private Grid grid;
+    private Grid grid;
 
 	@Before
 	public void setup() {
