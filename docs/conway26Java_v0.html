@@ -44,6 +44,15 @@ R2  L’utente umano deve poter:
   
 
 <h2>Requirement analysis</h2>
+<pre>
+
+    public interface ICell {
+	void setStatus(boolean v); //deriva dal fatto che la cella è un ente e che puo avere la capacita di odicare il prorpio stato interno in base a un valore booleano che puo essere o true o false
+	boolean isAlive();
+	void switchCellState();
+}
+
+</pre>
  
 
 <h2>Problem analysis</h2>
