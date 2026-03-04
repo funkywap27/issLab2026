@@ -1,7 +1,7 @@
 # issLab2026
  Laboratorio di <b>Ingegneria dei Sistemi Software</b> a.a. 2025/2026 di Pentoli Ginevra 0001247339
 
- INDEX di riferimento: <a href='https://funkywap27.github.io/issLab2026/'>GAME OF LIFE DI CONWAY</a>
+ INDEX di riferimento: <a href='https://funkywap27.github.io/issLab2026/'>Index</a>
 
  [Testo di riferimento:](https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf)
  <!-- comment: [ancora personalizzata] -->
