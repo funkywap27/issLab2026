@@ -47,10 +47,37 @@ R2  L’utente umano deve poter:
 <pre>
 
     public interface ICell {
-	void setStatus(boolean v); //deriva dal fatto che la cella è un ente e che puo avere la capacita di odicare il prorpio stato interno in base a un valore booleano che puo essere o true o false
-	boolean isAlive();
-	void switchCellState();
-}
+        void setStatus(boolean v); //deriva dal fatto che la cella è un ente e che puo avere la capacita di moodificare il prorpio stato interno in base a un valore booleano che puo essere o true o false
+        boolean isAlive(); // una cella puo avere valore true o false
+        void switchCellState(); //se è viva una cella pup diventare morta e viceversa
+    }
+
+    public interface IGrid {
+        public int getRowsNum(); //per ottenere il numero di righe della grid
+        public int getColsNum(); //per ottenere il numero di colonne della grid
+        public void setCellValue(int x, int y, boolean state); // per inserrie un valore in una specifica cella della grid
+        public ICell getCell(int x, int y); //per ottenre una cella specifica
+        public boolean getCellValue(int x, int y); // per ottenere il valore di una cella specifica
+        public void reset(); //per ripristinare il valore della griglia al default, stato iniziale
+    }
+
+    public interface LifeInterface {
+        void nextGeneration(); // Calcola l'evoluzione dello stato alla generazione successiva
+        boolean isAlive(int row, int col); //Restituisce lo stato di una cella specifica
+        void setCell(int row, int col, boolean alive); //Imposta lo stato di una cella
+
+        // Restituisce il numero di righe e colonne
+        int getRows();
+        int getCols();
+
+        ICell getCell(int x, int y); //Restituisce la Cella
+        Grid getGrid(); //Restituisce la grid
+        void resetGrids(); //pulisce
+        public String gridRep( ); // Restituisce una rappresentazione grafica testuale della grglia
+    }
+
+
+
 
 </pre>
  
@@ -59,6 +86,129 @@ R2  L’utente umano deve poter:
  
 
 <h2>Test plans</h2> 
+<pre>
+    public class CellTest {
+private ICell c;
+
+	@Before
+	public void setup() {
+		System.out.println("ConwayLifeTest | setup");	
+	    c = new Cell();
+	}
+	@After
+	public void down() {
+		System.out.println("ConwayLifeTest | down");
+	}
+	
+	@Test
+	public void testCellAlive() {
+		System.out.println("ConwayLifeTest | doing alive");
+		c.setStatus(true);
+		boolean r = c.isAlive();
+		assertTrue(r);
+		
+	}
+	
+	@Test
+	public void testCellDead() {
+		System.out.println("ConwayLifeTest | doing dead");
+		c.setStatus(false);
+		boolean r = c.isAlive();
+		assertTrue( !r);
+	}	
+}
+
+public class GridTest {
+	private static final int nRows=5;
+	private static final int nCols=5;
+	
+private Grid grid;
+
+	@Before
+	public void setup() {
+		System.out.println("GridTest | setup");	
+		grid= new Grid(nRows,nCols);
+	}
+	@After
+	public void down() {
+		System.out.println("GridTest | down");
+	}
+	
+	@Test
+	public void testDims() {
+		System.out.println("testDims ---------------------" );
+		int nr = grid.getRowsNum();
+		int nc = grid.getColsNum();
+		assertTrue( nr==nRows && nc==nCols );
+	}
+	@Test
+	public void testCGridCellValue() {
+		System.out.println("testCGridCellValue ---------------------" );
+		grid.setCellValue(0,0,true);
+		assertTrue(   grid.getCellValue(0,0) );
+		assertFalse(  grid.getCellValue(0,1) );
+	}
+	@Test
+	public void testGridRep() {
+		System.out.println("testGridRep ---------------------" );
+ 		System.out.println(""+grid);
+		assertTrue( grid.toString().startsWith(". . . . ."));
+	}
+	@Test
+	public void testPrintGrid() {
+		System.out.println("testPrintGrid ---------------------" );
+		grid.setCellValue(0,0,true);
+		grid.setCellValue(0,1,true);
+		grid.setCellValue(0,2,true);
+		grid.setCellValue(0,3,true);
+		grid.setCellValue(0,4,true);
+		//grid.printGrid();
+	}
+
+}
+
+public class LifeTest {
+
+    private LifeInterface life;
+
+    @Before
+    public void setup() {
+        System.out.println("LifeTest | setup");
+        life = Life.CreateLife(3, 3); // piccola griglia 3x3
+    }
+
+    @After
+    public void down() {
+        System.out.println("LifeTest | down");
+    }
+
+    @Test
+    public void testCellInitialDead() {
+        System.out.println("LifeTest | testCellInitialDead");
+        // tutte le celle devono inizialmente essere morte
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                assertTrue(!life.isAlive(r, c));
+            }
+        }
+    }
+
+    @Test
+    public void testSetCellAlive() {
+        System.out.println("LifeTest | testSetCellAlive");
+        life.setCell(1, 1, true);
+        assertTrue(life.isAlive(1, 1));
+    }
+
+    @Test
+    public void testResetGrids() {
+        System.out.println("LifeTest | testResetGrids");
+        life.setCell(1, 1, true);
+        life.resetGrids();
+        assertTrue(!life.isAlive(1, 1));
+    }
+}
+</pre>
 
 
 <h2>Project</h2> 
