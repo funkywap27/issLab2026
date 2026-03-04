@@ -52,6 +52,9 @@ R2  L’utente umano deve poter:
         void switchCellState(); //se è viva una cella pup diventare morta e viceversa
     }
 
+    Griglia è un'entita composta da celle, in discussione con il committente si rileva che Griglia è un'entità a due dimensione.
+    Si rileva che una dimensione è la lunghezza, il numero di colonne, e una dimensione è la larghezza, numero di righe.
+
     public interface IGrid {
         public int getRowsNum(); //per ottenere il numero di righe della grid
         public int getColsNum(); //per ottenere il numero di colonne della grid
