@@ -46,23 +46,27 @@ R2  L’utente umano deve poter:
 <h2>Requirement analysis</h2>
 <pre>
 
+    In discussione con il committente si è rilevato che la cella è un ente che modifica il proprio stato interno, che puo avere solo valore true o false.
+
     public interface ICell {
         void setStatus(boolean v); //deriva dal fatto che la cella è un ente e che puo avere la capacita di moodificare il prorpio stato interno in base a un valore booleano che puo essere o true o false
         boolean isAlive(); // una cella puo avere valore true o false
-        void switchCellState(); //se è viva una cella pup diventare morta e viceversa
+        void switchCellState(); //se è viva una cella puo diventare morta e viceversa
     }
 
     Griglia è un'entita composta da celle, in discussione con il committente si rileva che Griglia è un'entità a due dimensione.
     Si rileva che una dimensione è la lunghezza, il numero di colonne, e una dimensione è la larghezza, numero di righe.
     La Grid deve poter individuare una cella specifica in base al numero di riga e di colonna
 
+    Una non primitiva può essere costruita da altre primitive. Una primitiva è un operazione che non oposso realizzare senza consocere la rappresentazione concreta dell'entità, sono le uniche che conoscono come è fatta la struttura.
+
     public interface IGrid {
-        public int getRowsNum(); //per ottenere il numero di righe della grid
-        public int getColsNum(); //per ottenere il numero di colonne della grid
-        public void setCellValue(int x, int y, boolean state); // per inserrie un valore in una specifica cella della grid
-        public ICell getCell(int x, int y); //per ottenre una cella specifica
+        public int getRowsNum(); // primitiva: per ottenere il numero di righe della grid
+        public int getColsNum(); //primitiva: per ottenere il numero di colonne della grid
+        public void setCellValue(int x, int y, boolean state); // non primitiva: per inserrie un valore in una specifica cella della grid
+        public ICell getCell(int x, int y); //primitiva: per ottenre una cella specifica
         public boolean getCellValue(int x, int y); // per ottenere il valore di una cella specifica
-        public void reset(); //per ripristinare il valore della griglia al default, stato iniziale
+        public void reset(); //non primitiva: si riferisce allo stato delle celle, pone tutte le celle allo stato morta.
     }
 
     public interface LifeInterface {
