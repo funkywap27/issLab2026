@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="css/mystyle.css">
+<!--
+    <script type="text/javascript" src="../css/issStyle.js"></script>
+-->
+    
+</head>
+<title>Sprint3: conway26Java_v3</title>
+    
+
+<body>
+<div id="top">
+<h1>ConwayLife Sprint3</h1>
+</div>  
+
+<div class="body">  
+
+<h2>Introduction</h2>
+<b>Goal</b>: Realizzazione in Java del
+<a href='https://anatali.github.io/issLab2026/_static/docs/Protobook.pdf#chapter.6'>GAME OF LIFE DI CONWAY</a>
+limitatamente al <b>requisito  R1</b>.
+
+<h2>Requirements</h2>
+
+ 
+<!-- <div class="remark"> -->
+<pre>
+1. Il gioco Life deve avere una pagina HTML che serve per vedere e controllare il gioco.
+
+2. Questa pagina HTML deve essere separata dall’applicazione, seguendo l’architettura usata in IoJavalin (quindi frontend e backend separati).
+
+3. Il primo utente che apre la pagina diventa l’owner: solo lui può usare i pulsanti START, STOP, CLEAN, EXIT, gli altri utenti possono solo vedere
+
+4. La pagina deve aggiornarsi automaticamente mentre il gioco va avanti (senza ricaricare a mano).
+
+5. Se un altro utente entra mentre il gioco è già iniziato, deve vedere subito la griglia aggiornata correttamente.
+
+6. (Opzionale) La pagina può mostrare se: il gioco continua anche con griglia vuota oppure se è arrivato a una configurazione stabile
+
+7. Il gioco deve essere eseguito usando Docker (quindi deve funzionare dentro un container).
+</pre>
+  
+
+<h2>Requirement analysis</h2>
+<pre>
+    La pagina HTML costituisce un componente esterno all’applicazione, secondo l’architettura IoJavalin.
+    La pagina funge da dispositivo di I/O: riceve aggiornamenti dal server e permette all’utente owner di inviare comandi.
+    Solo il primo utente collegato (owner) può interagire con i pulsanti START, STOP, CLEAR, EXIT.
+    <a href='C:\Users\amoremio\Desktop\magistrale\issLab2026\issLab2026\Sprint3\conway26GuiHtml\bin\default\page\ConwayInOutPage.html'>CODICE</a>
+    La mappa è rappresentata come una griglia di div (map), dove ogni cella può essere viva o morta.
+    Le celle possono essere cliccate per inviare comandi al server tramite sendCmdToServer.
+    La pagina si aggiorna automaticamente con i messaggi ricevuti dal server (onmessage) permettendo agli utenti non owner di vedere lo stato attuale della griglia.
+
+    CallerServerInteraction rappresenta un client attivo che può inviare comandi:
+    <a href='C:\Users\amoremio\Desktop\magistrale\issLab2026\issLab2026\Sprint3\conway26GuiHtml\bin\default\conway26appl\caller\CallerServerInteraction.class'>CODICE</a>
+    Il client invia comandi alla logica di Life. ObserverServerInteraction rappresenta un client passivo, che riceve aggiornamenti e visualizza lo stato della griglia.
+    Questa struttura garantisce che nuovi utenti vedano sempre lo stato corrente della griglia, soddisfacendo il requisito multi-client.
+
+    In discussione con il committente si è stabilito che la pagina HTML deve aggiornarsi automaticamente man mano che il gioco procede, così che sia l’owner sia gli altri utenti vedano lo stato corretto.
+    <a href='C:\Users\amoremio\Desktop\magistrale\issLab2026\issLab2026\Sprint3\conway26GuiHtml\bin\default\page\wscanvascontrol.js'>CODICE</a>
+    La funzione draw(grid) si occupa di renderizzare visivamente la griglia. requestAnimationFrame garantisce un aggiornamento fluido e non blocca il browser.
+    Tutti i client connessi vedono la stessa griglia in tempo reale, anche chi non è owner, soddisfacendo il requisito di sincronizzazione.
+
+
+</pre>
+
+<h2>Problem analysis</h2>
+<pre>
+    <img src="./img/image.png" alt="emiglio" width="15%" height="15%">
+</pre>
+ 
+
+<h2>Test plans</h2> 
+
+<h2>Project</h2> 
+ 
+ 
+
+<h2>Testing</h2> 
+ 
+
+<h2>Deployment</h2> 
+
+ 
+<h2>Maintenance</h2> 
+ 
+<!-- USEFUL
+<table style="width:100%" border="1">
+<tr>
+<td style="width:50%">
+</td>
+<td></td>
+</tr>
+</table>
+-->
+	      	
+<br/><br/> 	
+</div>  
+
+<div style="background-color:rgba(86, 56, 253, 0.9); width:60%;text-align:left;color:white">
+By Ginevra Pentoli email: ginevra.pentoli@studio.unibo.it, 
+<!-- <img src="./img/mbot-S.jpg" alt="mbot" width="15%" height="15%"> -->
+<img src="./img/io.jpeg" alt="emiglio" width="15%" height="15%">
+GIT repo: https://github.com/funkywap27/issLab2026.git 
+</div> 
+</body>
+</html>
